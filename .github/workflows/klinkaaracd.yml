@@ -1,0 +1,24 @@
+name: Klinkaara Bank CD - Deploy
+
+on:
+  workflow_run:
+    workflows: ["Klinkaara Bank CI"]
+    types: [completed]
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: mvn clean package -DskipTests
+      - name: Deploy to Tomcat
+        run: |
+          curl -u ${{ secrets.TOMCAT_USER }}:${{ secrets.TOMCAT_PASS }} \
+          -T target/klinkaara-bank.war \
+          "${{ secrets.TOMCAT_URL }}/manager/text/deploy?path=/klinkaara-bank&update=true"
