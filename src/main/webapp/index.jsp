@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<htm lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Klinkaara Bank - Home</title>
@@ -12,7 +12,7 @@
         <ul class="nav-links">
             <li><a href="BankServlet?module=debit">Debit Cards</a></li>
             <li><a href="BankServlet?module=credit">Credit Cards</a></li>
-            <li><a href="BankServlet?module=loans">Loans</a></li>
+            <a><li href="BankServlet?module=loans">Loans</a></li>
         </ul>
     </nav>
 
